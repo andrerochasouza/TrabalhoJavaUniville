@@ -29,7 +29,7 @@ public class Trabalho {
 
 			// Caso-Recursivo
 		} else {
-			rotacaoMatrizRecursivo(rotacaoMatrizNoventaGrausPar(matrizEntrada), graus - 90);
+			rotacaoMatrizRecursivo(rotacaoMatrizNoventaGraus(matrizEntrada), graus - 90);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class Trabalho {
 		return matriz;
 	}
 
-	static int[][] rotacaoMatrizNoventaGrausPar(int antigoMatriz[][]) {
+	static int[][] rotacaoMatrizNoventaGraus(int antigoMatriz[][]) {
 
 		int novaMatriz[][] = new int[antigoMatriz.length][antigoMatriz.length];
 		
@@ -106,6 +106,7 @@ public class Trabalho {
 		}
 
 		int matriz[][] = new int[tamanho][tamanho];
+		
 		
 		System.out.println("Quer colocar valores manualmente na matriz? (0 - Não | 1 - Sim)");
 		int valoresMatriz = scanner.nextInt();
