@@ -29,6 +29,7 @@ public class RoboLunar {
                 System.out.println("Acelerando...");
                 this.velocidade += 1;
                 this.bateria -= 1;
+                System.out.println("Velocidade atual: " + (this.velocidade) + " km/h");
             }
 
         }
@@ -42,6 +43,7 @@ public class RoboLunar {
                 System.out.println("Freando...");
                 this.velocidade -= 1;
                 this.bateria -= 1;
+                System.out.println("Velocidade atual: " + (this.velocidade) + " km/h");
             }
         }
     }
@@ -78,6 +80,7 @@ public class RoboLunar {
         System.out.println("Nome: " + this.nome);
         System.out.println("Bateria: " + this.bateria + " %");
         System.out.println("Velocidade: " + this.velocidade + " km/h");
+        System.out.println("Direçao: " + this.direcaoLunar);
         System.out.println("Memoria: " + this.memoria + " MB");
         System.out.println("Lanterna: " + (this.lanterna ? "Ligada" : "Desligada"));
         System.out.println("Fotos: " + this.fotos);
@@ -90,7 +93,7 @@ public class RoboLunar {
             } else {
                 System.out.println("Rotacionando 90 graus...");
                 direcaoNova();
-                System.out.println("Direção Robo Lunar: " + this.direcaoLunar);
+                System.out.println("Nova direçao do Robo Lunar: " + this.direcaoLunar);
                 this.bateria -= 1;
             }
         }
