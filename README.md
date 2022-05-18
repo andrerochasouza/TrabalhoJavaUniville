@@ -7,5 +7,5 @@ Desenvolvimento de varios trabalhos para a disciplina de Programação Orientado
 Segue abaixo a imagem da UML de classe do trabalho 2.
 
 <div>
-<img src="Trabalho 2 - POO - Robo Lunar\src\UML Robo Lunar.png" alt="UML" width="500" height="500">
+<img src="Trabalho 2 - POO - Robo Lunar\src\UML Robo Lunar.png" alt="UML" width="600" height="400">
 </div>
