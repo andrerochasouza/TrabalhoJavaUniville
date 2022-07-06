@@ -33,11 +33,11 @@ public class Aluno {
 	public float mediaFinal() {
 		float notasVezesPesos = 0.0F;
 		float somaPesos = 0.0F;
-		
-		if(notas.isEmpty()) {
+
+		if (notas.isEmpty()) {
 			return 0.0F;
 		}
-		
+
 		for (Trabalho trabalho : notas.keySet()) {
 			notasVezesPesos += notas.get(trabalho) * trabalho.getPeso();
 			somaPesos += trabalho.getPeso();
@@ -47,10 +47,11 @@ public class Aluno {
 	}
 
 	public void addNota(float nota, Trabalho trabalho) {
-		if (nota > 0.0F && nota <= trabalho.getPeso() && notas.get(trabalho) == null) {
+		if (nota > 0.0F && nota <= trabalho.getPeso()) {
 			notas.put(trabalho, nota);
+		} else {
+			throw new RuntimeException("Erro ao adicionar uma nota ao trabalho");
 		}
-		throw new RuntimeException("Erro ao adicionar uma nota ao trabalho");
 	}
 
 	public void deleteNota(Trabalho trabalho) {
