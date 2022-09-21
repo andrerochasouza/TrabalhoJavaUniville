@@ -21,7 +21,7 @@ class Process{
         this.#carga;
     }
 
-    setNome(){
-
+    setNome(nome){
+        this.#nome = nome;
     }
 }
