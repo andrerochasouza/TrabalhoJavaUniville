@@ -25,7 +25,7 @@ class Process{
       this.prioridade = prioridade;
   }
 
-  setCarga(){
+  setCarga(carga){
       this.carga = carga;
   }
 }
@@ -59,9 +59,13 @@ process3.setCarga([5,2,1,-9]);
 const listProcess = { process1, process2, process3 };
 
 function fifo(listProcess){
-
+  
 }
 
 function draw() {
-  line(process1.getCarga().index(0), process1.getCarga()[1], process1.getCarga()[2], process1.getCarga()[3]);
+  
+  let a = process1.getCarga()[0];
+  console.log(a);
+  
+  // line(process1.getCarga()[0], process1.getCarga()[1], process1.getCarga()[2], process1.getCarga()[3]);
 }
