@@ -24,4 +24,12 @@ class Process{
     setNome(nome){
         this.#nome = nome;
     }
+
+    setPrioridade(prioridade){
+        this.#prioridade = prioridade;
+    }
+
+    setCarga(){
+        this.#carga = carga;
+    }
 }
