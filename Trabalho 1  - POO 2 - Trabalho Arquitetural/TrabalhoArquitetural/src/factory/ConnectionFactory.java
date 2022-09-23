@@ -8,22 +8,27 @@ public class ConnectionFactory {
 
     private ConnectionFactory(){};
 
-    public static Connection createConnection(Datasource datasource) throws SQLException{
+    public static String createConnectionOracle(Datasource datasource){
+
+        Connection conexao = null;
+        String ip = datasource.getIp();
+
         try {
-            String url = datasource.getUrl();
+
+            String port = datasource.getPort();
+            String sid = datasource.getSid();
             String user = datasource.getUser();
             String password = datasource.getPassword();
-
-            Connection conexao = null;
-            conexao = DriverManager.getConnection(url, user, password);
+            //conexao = DriverManager.getConnection(url, user, password);
 
         } catch (Exception e){
             e.printStackTrace();
         }
 
-
-
-        return conexao;
+        return ip;
+        //return conexao;
     }
+
+
 
 }
