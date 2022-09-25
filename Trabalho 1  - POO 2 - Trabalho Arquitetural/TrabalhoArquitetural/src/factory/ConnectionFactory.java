@@ -2,33 +2,28 @@ package factory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.Properties;
 
 public class ConnectionFactory {
 
     private ConnectionFactory(){};
 
-    public static String createConnectionOracle(Datasource datasource){
+    public static Connection createConnection(DatabaseType databaseType){
 
         Connection conexao = null;
-        String ip = datasource.getIp();
 
         try {
+            Properties ds = Datasource.getProperties(databaseType);
 
-            String port = datasource.getPort();
-            String sid = datasource.getSid();
-            String user = datasource.getUser();
-            String password = datasource.getPassword();
-            //conexao = DriverManager.getConnection(url, user, password);
+            String url = ds.getProperty("datasource.url");
+            String user = ds.getProperty("datasource.user");
+            String password = ds.getProperty("datasource.password");
+            conexao = DriverManager.getConnection(url, user, password);
 
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        return ip;
-        //return conexao;
+        return conexao;
     }
-
-
-
 }

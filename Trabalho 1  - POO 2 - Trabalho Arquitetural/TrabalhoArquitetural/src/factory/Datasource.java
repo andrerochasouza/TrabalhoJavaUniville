@@ -1,61 +1,46 @@
 package factory;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class Datasource {
 
-    private Properties getProps(){
-        Properties props = new Properties();
+    public static Properties getProperties(DatabaseType databaseType) {
 
-        try{
-        FileInputStream file = new FileInputStream("resource/datasource.properties");
-        props.load(file);
-        } catch(IOException e){
+        Properties props = new Properties();
+        String dsPath = "resource/"+ databaseType +"-ds.properties";
+
+        try {
+            FileInputStream fis = new FileInputStream(dsPath);
+            props.load(fis);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
         return props;
     }
 
-    public String getIp() {
-        return this.getProps().getProperty("datasource.oracle.ip");
-    }
+    public static void setProperties(ConnectionJdbc jdbc, DatabaseType databaseType){
 
-    public String getPort() {
-        return this.getProps().getProperty("datasource.oracle.port");
-    }
+        Properties props = new Properties();
+        String dsPath = "resource/"+ databaseType +"-ds.properties";
 
-    public String getSid() {
-        return this.getProps().getProperty("datasource.oracle.sid");
-    }
+        try{
+            props.setProperty("datasource.url", jdbc.getUser());
+            props.setProperty("datasource.user", jdbc.getPassword());
+            props.setProperty("datasource.password", jdbc.getDriver());
+            props.setProperty("datasource.driver", jdbc.getUrl());
+            props.setProperty("datasource.database", jdbc.getDatabase());
 
-    public String getUser() {
-        return this.getProps().getProperty("datasource.oracle.user");
-    }
-
-    public String getPassword() {
-        return this.getProps().getProperty("datasource.oracle.password");
-    }
-
-    public void setIp(String ip) {
-        this.getProps().setProperty("datasource.oracle.ip", ip);
-    }
-
-    public void setPort(String port) {
-        this.getProps().setProperty("datasource.oracle.port", port);
-    }
-
-    public void setSid(String sid) {
-        this.getProps().setProperty("datasource.oracle.sid", sid);
-    }
-
-    public void setUser(String user) {
-        this.getProps().setProperty("datasource.oracle.user", user);
-    }
-
-    public void setPassword(String password) {
-        this.getProps().setProperty("datasource.oracle.password", password);
+            FileOutputStream fos = new FileOutputStream(dsPath);
+            props.store(fos, "FILE JDBC PROPERTIES:");
+            fos.close();
+        } catch (NullPointerException e){
+            System.err.println("All attributes must be entered !!");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
