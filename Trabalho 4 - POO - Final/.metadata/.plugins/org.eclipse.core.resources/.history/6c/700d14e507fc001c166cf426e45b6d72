@@ -1,0 +1,54 @@
+package poo;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+public class Aluno {
+
+	private String nome;
+	private String idade;
+	private Hashtable<Trabalho, Float> notas;
+
+	public Aluno(String nome, String idade) {
+		this.nome = nome;
+		this.idade = idade;
+		this.notas = new Hashtable<Trabalho, Float>();
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getIdade() {
+		return idade;
+	}
+
+	public void setIdade(String idade) {
+		this.idade = idade;
+	}
+
+	public float mediaFinal() {
+		float media = 0;
+		for (float nota : notas) {
+			media += nota;
+		}
+		return media / notas.size();
+	}
+
+	public void addNota(float nota, Trabalho trabalho) {
+		this.notas.add(nota);
+	}
+
+	public Float getNotaDeAluno(String trabalho) {
+		try {
+			
+		} catch (RuntimeException e) {
+			System.err.println("Erro ao pegar nota do aluino"+ trabalho);
+		}
+	}
+
+}

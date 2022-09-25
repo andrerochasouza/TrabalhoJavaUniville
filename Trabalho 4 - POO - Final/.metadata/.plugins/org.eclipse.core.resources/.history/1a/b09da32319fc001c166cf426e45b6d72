@@ -1,0 +1,62 @@
+package poo;
+
+import java.util.HashMap;
+
+public class Aluno {
+
+	private String nome;
+	private String idade;
+	private HashMap<Trabalho, Float> notas;
+
+	public Aluno(String nome, String idade) {
+		this.nome = nome;
+		this.idade = idade;
+		this.notas = new HashMap<Trabalho, Float>();
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getIdade() {
+		return idade;
+	}
+
+	public void setIdade(String idade) {
+		this.idade = idade;
+	}
+
+	public float mediaFinal() {
+		float media = 0;
+		for (float nota : notas) {
+			media += nota;
+		}
+		return media / notas.size();
+	}
+
+	public void addNota(float nota, Trabalho trabalho) {
+		try {
+			if (nota > 0.0 && nota <= trabalho.getPeso()) {
+				notas.put(trabalho, nota);
+			}
+		} catch (RuntimeException e) {
+			System.err.println("Erro ao adicionar uma nota " + e);
+		}
+	}
+
+	public float getNotaDeAluno(Trabalho trabalho) {
+		try {
+			if(notas.get(trabalho) == null) {
+				return notas.get(trabalho);
+			}
+		} catch (Exception e) {
+			System.err.println("Erro ao pegar nota do trabalho "+ trabalho);
+		}
+		
+	}
+
+}

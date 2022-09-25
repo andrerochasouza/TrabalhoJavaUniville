@@ -1,0 +1,62 @@
+package poo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class DisciplinaTest {
+	
+    @Test
+    public void testNewTrabalho() {
+        disciplina.newTrabalho(trab1);
+
+        assertEquals(1, disciplina.sizeTrabalhos());
+    }
+    
+    @Test
+    public void testDeleteTrabalho() {
+        disciplina.deleteTrabalho(trab1);
+
+        assertEquals(0, disciplina.sizeTrabalhos());
+    }
+
+    @Test
+    public void testAddAluno() {
+        disciplina.addAluno(aluno);
+
+        assertEquals(1, disciplina.sizeAlunos());
+    }
+
+    @Test
+    public void testDeleteAluno() {
+	    disciplina.addAluno(aluno);
+        disciplina.deleteAluno(aluno);
+
+        assertEquals(0, disciplina.sizeAlunos());
+    }
+
+    @Test
+    public void testQueAdicionaANota10AUmAluno() {
+        disciplina.addNotaDeTrabalhoParaAluno(aluno, trab1, 10F);
+
+        assertEquals(10F, aluno.getNotas().get(1));
+    }
+
+    @Test
+    public void testRetornarErroQuandoAdicionarNotaNegativa() {
+    	Assertions.assertThrows(RuntimeException.class, () -> {
+    		disciplina.addNotaDeTrabalhoParaAluno(aluno, trab1, -1F);    		
+    	});
+    }
+    
+    private static Disciplina disciplina = new Disciplina("Matematica");
+
+    private static Trabalho trab1 = new Trabalho("Trabalho 1", 2.5F);
+    private static Trabalho trab2 = new Trabalho("Trabalho 2", 2.5F);
+    private static Trabalho trab3 = new Trabalho("Trabalho 3", 2.5F);
+    private static Trabalho trab4 = new Trabalho("Trabalho 4", 2.5F);
+
+    private static Aluno aluno = new Aluno("Maria", "18");
+
+}

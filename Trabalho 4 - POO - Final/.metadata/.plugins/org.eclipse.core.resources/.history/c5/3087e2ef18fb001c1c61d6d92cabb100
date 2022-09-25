@@ -1,0 +1,68 @@
+package poo;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class DisciplinaTest {
+
+    // Disciplina
+    Disciplina disciplina = new Disciplina("Matematica");
+
+    // Trabalhos da disciplina
+    Trabalho trab1 = new Trabalho("Trabalho 1", 2.5F);
+    Trabalho trab2 = new Trabalho("Trabalho 2", 2.5F);
+    Trabalho trab3 = new Trabalho("Trabalho 3", 2.5F);
+    Trabalho trab4 = new Trabalho("Trabalho 3", 2.5F);
+
+    disciplina.newTrabalho(trab1);
+
+    // Alunos que estao matriculados em disciplina
+    Aluno aluno1 = new Aluno("Joao", "18");
+    Aluno aluno2 = new Aluno("Maria", "18");
+    Aluno aluno3 = new Aluno("Jose", "18");
+
+    disciplina.addAluno(aluno1);
+    disciplina.addAluno(aluno2);
+    disciplina.addAluno(aluno3);
+
+    @Test
+    public void testNewTrabalho() {
+        disciplina.newTrabalho(trab1);
+
+        assertEquals(1, disciplina.getTrabalhos().size());
+    }
+
+    @Test
+    public void testAddAluno() {
+        disciplina.addAluno(aluno1);
+
+        assertEquals(1, disciplina.getAlunos().size());
+    }
+
+    @Test
+    public void testDeleteTrabalho() {
+        disciplina.deleteTrabalho(trab1);
+
+        assertEquals(0, disciplina.getTrabalhos().size());
+    }
+
+    @Test
+    public void testDeleteAluno() {
+        disciplina.deleteAluno(aluno1);
+
+        assertEquals(0, disciplina.getAlunos().size());
+    }
+
+    @Test
+    public void testQueAdicionaANota10AUmAluno() {
+        disciplina.addNotaDeTrabalhoParaAluno(aluno1, trab1, 10F);
+
+        assertEquals(10F, aluno1.getNotas().get(1));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testRetornarErroQuandoAdicionarNotaNegativa() {
+        disciplina.addNotaDeTrabalhoParaAluno(aluno1, trab1, -1F);
+    }
+
+}

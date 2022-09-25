@@ -1,0 +1,40 @@
+package poo;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class AlunoTest {
+
+	@Test
+	public void testMediaFinalRetornaZeroQuandoNaoTemNotas() {
+		assertEquals(0.0F, aluno.mediaFinal(), 0.1F);
+	}
+
+	@Test
+	public void testMediaFinalRetorna10QuandoTodasAsNotasSao10DoAluno() {
+		disciplina.addNotaDeTrabalhoParaAluno(aluno.getNome(), trab.getNome(), 10);
+
+
+		assertEquals(10.0F, aluno.mediaFinal(), 0.1F);
+	}
+
+	@Test
+	public void testMediaFinalRetorna7DoAluno() {
+		disciplina.addNotaDeTrabalhoParaAluno(aluno.getNome(), trab.getNome(), 7);
+
+		assertEquals(7.0F, aluno.mediaFinal(), 0.1F);
+	}
+	
+	@Test
+	public void testDeletaUmaNotaDoAluno() {
+		disciplina.addNotaDeTrabalhoParaAluno(aluno.getNome(), trab.getNome(), 7);
+
+		assertEquals(7.0F, aluno.mediaFinal(), 0.1F);
+	}
+
+	private static Disciplina disciplina = new Disciplina("Matematica");
+	private static Trabalho trab = new Trabalho("Trabalho 1", 10.0F);
+	private static Aluno aluno = new Aluno("Joao", "18");
+	
+}

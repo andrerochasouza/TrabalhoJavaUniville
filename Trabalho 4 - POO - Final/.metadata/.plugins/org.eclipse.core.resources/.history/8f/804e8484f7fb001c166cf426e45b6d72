@@ -1,0 +1,64 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class AlunoTest {
+
+    // Disciplina
+    static Disciplina disciplina = new Disciplina("Matematica");
+
+    // Trabalhos da disciplina
+    Trabalho trab1 = new Trabalho("Trabalho 1", 2.5F);
+    Trabalho trab2 = new Trabalho("Trabalho 2", 2.5F);
+    Trabalho trab3 = new Trabalho("Trabalho 3", 2.5F);
+    Trabalho trab4 = new Trabalho("Trabalho 3", 2.5F);
+
+    disciplina.newTrabalho(trab1);
+    disciplina.newTrabalho(trab2);
+    disciplina.newTrabalho(trab3);
+    disciplina.newTrabalho(trab4);
+
+    // Alunos que estao matriculados em disciplina
+    Aluno aluno1 = new Aluno("Joao", "18");
+    Aluno aluno2 = new Aluno("Maria", "18");
+    Aluno aluno3 = new Aluno("Jose", "18");
+
+    disciplina.addAluno(aluno1);
+    disciplina.addAluno(aluno2);
+    disciplina.addAluno(aluno3);
+
+    @Test
+    public void testMediaFinalRetornaZeroQuandoNaoTemNotas() {
+        Trabalho trab1 = new Trabalho("Trabalho 1", 2.5F);
+        Trabalho trab2 = new Trabalho("Trabalho 2", 2.5F);
+        Trabalho trab3 = new Trabalho("Trabalho 3", 2.5F);
+        Trabalho trab4 = new Trabalho("Trabalho 3", 2.5F);
+        
+        disciplina.addNotaDeTrabalhoParaAluno(aluno1, trab1, 0);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno1, trab2, 0);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno1, trab3, 0);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno1, trab4, 0);
+
+        assertEquals(0.0F, aluno1.getMediaFinal());
+    }
+
+    @Test
+    public void testMediaFinalRetorna10QuandoTodasAsNotasSao10DoAluno1() {
+        disciplina.addNotaDeTrabalhoParaAluno(aluno2, trab1, 10);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno2, trab2, 10);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno2, trab3, 10);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno2, trab4, 10);
+
+        assertEquals(10.0F, aluno2.mediaFinal());
+    }
+
+    @Test
+    public void testMediaFinalRetorna7DoAluno2() {
+        disciplina.addNotaDeTrabalhoParaAluno(aluno3, trab1, 7);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno3, trab2, 7);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno3, trab3, 7);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno3, trab4, 7);
+
+        assertEquals(7.0F, aluno3.mediaFinal());
+    }
+}

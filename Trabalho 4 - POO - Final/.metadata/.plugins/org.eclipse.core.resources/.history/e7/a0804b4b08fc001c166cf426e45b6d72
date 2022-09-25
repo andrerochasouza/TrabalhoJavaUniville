@@ -1,0 +1,54 @@
+package poo;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+
+public class AlunoTest {
+
+	@Test
+	public void testMediaFinalRetornaZeroQuandoNaoTemNotas() {
+		assertEquals(0.0F, aluno.mediaFinal(), 0.1F);
+	}
+
+	@Test
+	public void testMediaFinalRetorna10QuandoTodasAsNotasSao10DoAluno() {
+		disciplina.addNotaDeTrabalhoParaAluno(aluno.getNome(), trab.getNome(), 10);
+
+
+		assertEquals(10.0F, aluno.mediaFinal(), 0.1F);
+	}
+
+	@Test
+	public void testMediaFinalRetorna7DoAluno() {
+		disciplina.addNotaDeTrabalhoParaAluno(aluno.getNome(), trab.getNome(), 7);
+
+		assertEquals(7.0F, aluno.mediaFinal(), 0.1F);
+	}
+	
+	@Test
+	public void testDeletaUmaNotaDoAluno() {
+		String nomeTrabalho = "Trabalho 1";
+		aluno.deleteNota(nomeTrabalho);
+		
+		Assertions.assertThrows(RuntimeException.class, () -> {
+			aluno.getNotaDeAluno(nomeTrabalho);
+		});
+	}
+	
+	@Test
+	public void testPegarUmaNotaDoAluno() {
+		String nomeTrabalho = "Trabalho 1";
+		
+		Assertions.assertThrows(RuntimeException.class, () -> {
+			aluno.getNotaDeAluno(nomeTrabalho);
+		});
+	}
+
+	private static Disciplina disciplina = new Disciplina("Matematica");
+	private static Trabalho trab = new Trabalho("Trabalho 1", 10.0F);
+	private static Aluno aluno = new Aluno("Joao", "18");
+	
+}

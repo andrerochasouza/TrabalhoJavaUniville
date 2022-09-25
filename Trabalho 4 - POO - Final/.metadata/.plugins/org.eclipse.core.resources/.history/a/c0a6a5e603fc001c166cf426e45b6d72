@@ -1,0 +1,71 @@
+package poo;
+
+import java.util.ArrayList;
+
+public class Disciplina {
+
+	private String nome;
+	private ArrayList<Trabalho> trabalhos;
+	private ArrayList<Aluno> alunos;
+
+	public Disciplina(String nome) {
+		this.nome = nome;
+		this.trabalhos = new ArrayList<>();
+		this.alunos = new ArrayList<>();
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void addTrabalho(Trabalho trabalho) {
+		this.trabalhos.add(trabalho);
+	}
+
+	public void deleteTrabalho(Trabalho trabalho) {
+		this.trabalhos.remove(trabalho);
+	}
+
+	public void addAluno(Aluno aluno) {
+		this.alunos.add(aluno);
+	}
+
+	public void deleteAluno(Aluno aluno) {
+		this.alunos.remove(aluno);
+	}
+
+	public void addNotaDeTrabalhoParaAluno(Aluno aluno, Trabalho trabalho, float nota) {
+		try
+	}
+
+	private Aluno getAlunoPorNome(String nome) {
+		for (Aluno aluno : alunos) {
+			if (aluno.getNome().equals(nome)) {
+				return aluno;
+			}
+		}
+		throw new RuntimeException("Aluno nao encontrado");
+	}
+	
+	private Trabalho getTrabalhoPorNome(String nome) {
+		for (Trabalho trabalho : trabalhos) {
+			if (trabalho.getNome().equals(nome)) {
+				return trabalho;
+			}
+		}
+		throw new RuntimeException("Trabalho nao encontrado");
+	}
+
+	public Integer sizeTrabalhos() {
+		return trabalhos.size();
+	}
+
+	public Integer sizeAlunos() {
+		return alunos.size();
+	}
+
+}

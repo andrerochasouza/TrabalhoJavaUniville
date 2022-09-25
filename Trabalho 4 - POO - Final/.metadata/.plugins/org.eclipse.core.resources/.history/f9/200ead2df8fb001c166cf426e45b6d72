@@ -1,0 +1,48 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class AlunoTest {
+
+    @Test
+    public void testMediaFinalRetornaZeroQuandoNaoTemNotas() {
+        disciplina.addAluno(aluno1);
+
+        assertEquals(0.0F, aluno1.mediaFinal(), 0.1F);
+    }
+
+    @Test
+    public void testMediaFinalRetorna10QuandoTodasAsNotasSao10DoAluno1() {
+        disciplina.addNotaDeTrabalhoParaAluno(aluno2, trab1, 10);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno2, trab2, 10);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno2, trab3, 10);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno2, trab4, 10);
+
+        assertEquals(10.0F, aluno2.mediaFinal(), 0.1F);
+    }
+
+    @Test
+    public void testMediaFinalRetorna7DoAluno2() {
+        disciplina.addNotaDeTrabalhoParaAluno(aluno3, trab1, 7);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno3, trab2, 7);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno3, trab3, 7);
+        disciplina.addNotaDeTrabalhoParaAluno(aluno3, trab4, 7);
+
+        assertEquals(7.0F, aluno3.mediaFinal(), 0.1F);
+    }
+    
+
+    // Disciplina
+    private static Disciplina disciplina = new Disciplina("Matematica");
+
+    // Trabalhos da disciplina
+    private static Trabalho trab1 = new Trabalho("Trabalho 1", 2.5F);
+    private static Trabalho trab2 = new Trabalho("Trabalho 2", 2.5F);
+    private static Trabalho trab3 = new Trabalho("Trabalho 3", 2.5F);
+    private static Trabalho trab4 = new Trabalho("Trabalho 3", 2.5F);
+
+    // Alunos que estao matriculados em disciplina
+    private static Aluno aluno1 = new Aluno("Joao", "18");
+    private static Aluno aluno2 = new Aluno("Maria", "18");
+    private static Aluno aluno3 = new Aluno("Jose", "18");
+}
