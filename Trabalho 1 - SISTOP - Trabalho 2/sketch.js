@@ -82,9 +82,8 @@ function temProcesso(){
   }
 }
 
-
 function setup() {
-  createCanvas(720, 400);
+  createCanvas(800, 400);
   background(0);
   noLoop();
 }
