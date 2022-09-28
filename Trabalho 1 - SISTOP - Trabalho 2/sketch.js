@@ -91,9 +91,25 @@ function setup() {
 function fifo(){
   if(temProcesso()){
     background(0);
-    
+
+    let tempo = 0;
+
+    for (let i = 0; i < processos.length; i++) {
+      let p = processos[i];
+      for (let j = 0; j < p.getTempo().length; j++) {
+        if(p.getTempo()[j] < 0){
+          tempo += p.getTempo()[j] * -1;
+        } else {
+          tempo += p.getTempo()[j];
+        }
+      }
+    }
+
     stroke(255);
-    line(0, 200, 800, 200);
+    line(100, 50, 100, 350);
+    line(75, 325, 700, 325);
+    
+
   } else {
     alert("Não há processos para executar");
     background(0);
