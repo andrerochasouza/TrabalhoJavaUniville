@@ -90,28 +90,34 @@ function setup() {
 
 function fifo(){
   if(temProcesso()){
-
+    background(0);
+    
+    stroke(255);
+    line(0, 200, 800, 200);
   } else {
     alert("Não há processos para executar");
+    background(0);
   }
 }
 
 function sjf(){
   if(temProcesso()){
+    background(0);
+
 
   } else {
     alert("Não há processos para executar");
+    background(0);
   }
 }
 
 function prioridade(){
   if(temProcesso()){
+    background(0);
 
-  } else {
+
+  } else {    
     alert("Não há processos para executar");
+    background(0);
   }
-}
-
-function draw() {
-
 }
