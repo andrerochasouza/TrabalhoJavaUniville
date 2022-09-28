@@ -17,23 +17,31 @@
 
 <body>
 
-  <!-- campo para adicionar nome, prioridade e carga -->
   <h1>Adicionar processo</h1>
-  <form action="#">
+  <form>
     <label for="nome">Nome:</label><br>
-    <input type="text" id="nome" name="nome"><br>
+      <input type="text" id="nome" name="nome"><br>
     <label for="prioridade">Prioridade:</label><br>
-    <input type="text" id="prioridade" name="prioridade"><br>
-    <label for="carga">Carga:</label><br>
-    <input type="number" id="tempo1" name="tempo1" min="-5" max="5"><br>
-    <input type="number" id="tempo2" name="tempo2" min="-5" max="5"><br>
-    <input type="number" id="tempo3" name="tempo3" min="-5" max="5"><br>
-    <input type="number" id="tempo4" name="tempo4" min="-5" max="5"><br>
-    <input type="number" id="tempo5" name="tempo5" min="-5" max="5"><br>
-    <input type="submit" value="Adicionar processo" onclick="createProcess()">
+      <input type="number" id="prioridade" name="prioridade" min="1" max="5"><br>
+    <label for="tempo">Tempo:</label><br>
+      <input type="number" id="tempo1" name="tempo1" min="-5" max="5">
+      <input type="number" id="tempo2" name="tempo2" min="-5" max="5">
+      <input type="number" id="tempo3" name="tempo3" min="-5" max="5">
+      <input type="number" id="tempo4" name="tempo4" min="-5" max="5">
+      <input type="number" id="tempo5" name="tempo5" min="-5" max="5"><br>
+      <input type="button" value="Adicionar processo" onclick="createProcess()">
   </form>
 
-
+  <h1>Processos</h1>
+  <div id="processos"></div>
+  
+  <h1>Algoritmos</h1>
+  <button onclick="fifo()">FIFO</button>
+  <button onclick="sjf()">SJF</button>
+  <button onclick="prioridade()">Prioridade</button>
+  
+  <h1>Gráfico</h1>
+  <div id="grafico"></div>  
 
 </body>
 
