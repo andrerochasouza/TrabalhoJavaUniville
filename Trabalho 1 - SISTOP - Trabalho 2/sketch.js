@@ -18,40 +18,41 @@ class Process{
   }
 }
 
-const processos = [];
-const maxProcessos = 5;
-
-function createProcess(){
-  let nome = document.getElementById("nome").value;
-  let prioridade = document.getElementById("prioridade").value;
-  let tempo1 = document.getElementById("tempo1").value;
-  let tempo2 = document.getElementById("tempo2").value;
-  let tempo3 = document.getElementById("tempo3").value;
-  let tempo4 = document.getElementById("tempo4").value;
-  let tempo5 = document.getElementById("tempo5").value;
-
-  // verificar se o nome é vazio
+function validation(nome, prioridade, tempos){
   if(nome == ""){
     alert("Nome do processo não pode ser vazio");
-    return;
+    return false;
   }
 
   if (prioridade < 1 || prioridade > 5){
     alert("Prioridade deve ser entre 1 a 5");
-    return;
+    return false;
   }
 
-  for (let i = 0; i < 5; i++) {
-    if (tempo1 < -5 || tempo1 > 5) {
-      alert("O tempo deve estar entre -5 a 5");
-      return;
+  for (let i = 0; i < tempos.length; i++) {
+    if(tempos[i] == "" || tempos[i] == null){
+      alert("Tempo "+ (i + 1) +" não pode ser vazia");
+      return false;
     }
   }
 
-  let tempo = [tempo1, tempo2, tempo3, tempo4, tempo5];
+  return true;
+}
 
-  if(processos.length < maxProcessos){
-    processos.push(new Process(nome, prioridade, tempo));
+function createProcess(){
+  let nome = document.getElementById("nome").value;
+  let prioridade = document.getElementById("prioridade").value;
+  let tempos = [];
+  tempos[0] = document.getElementById("tempo1").value;
+  tempos[1] = document.getElementById("tempo2").value;
+  tempos[2] = document.getElementById("tempo3").value;
+  tempos[3] = document.getElementById("tempo4").value;
+  tempos[4] = document.getElementById("tempo5").value;
+
+  if(validation(nome, prioridade, tempos)){
+    if(processos.length < maxProcessos){ 
+      processos.push(new Process(nome, prioridade, tempos));
+    }
   }
 
   let processosDiv = document.getElementById("processos");
@@ -108,6 +109,7 @@ function fifo(){
     stroke(255);
     line(100, 50, 100, 350);
     line(75, 325, 700, 325);
+    
     
 
   } else {
