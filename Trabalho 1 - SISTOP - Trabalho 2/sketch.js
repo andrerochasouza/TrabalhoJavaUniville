@@ -39,6 +39,9 @@ function validation(nome, prioridade, tempos){
   return true;
 }
 
+const processos = [];
+const maxProcessos = 5;
+
 function createProcess(){
   let nome = document.getElementById("nome").value;
   let prioridade = document.getElementById("prioridade").value;
@@ -50,8 +53,10 @@ function createProcess(){
   tempos[4] = document.getElementById("tempo5").value;
 
   if(validation(nome, prioridade, tempos)){
-    if(processos.length < maxProcessos){ 
+    if(processos.length < maxProcessos){
       processos.push(new Process(nome, prioridade, tempos));
+    } else {
+      alert("Número máximo de processos é 5");
     }
   }
 
@@ -93,23 +98,49 @@ function fifo(){
   if(temProcesso()){
     background(0);
 
-    let tempo = 0;
-
-    for (let i = 0; i < processos.length; i++) {
-      let p = processos[i];
-      for (let j = 0; j < p.getTempo().length; j++) {
-        if(p.getTempo()[j] < 0){
-          tempo += p.getTempo()[j] * -1;
-        } else {
-          tempo += p.getTempo()[j];
-        }
-      }
-    }
-
     stroke(255);
+    //    X1  Y1   X2   Y2
     line(100, 50, 100, 350);
+    stroke(155);
     line(75, 325, 700, 325);
     
+    
+    let posicaoX = [];
+    let posicaoY = [];
+
+    let qtdProcessos = processos.length;
+    
+    // Pegando o tempo total dos processos
+    let qtdTempoTotal = 0;
+    for (let i = 0; i < qtdProcessos; i++) {
+      qtdTempoTotal += processos[i].getTempo().length;
+    }
+
+    // Pegando as posições dos processos
+    let positionY = 300 / qtdProcessos;
+    for(let i = 0; i < qtdProcessos; i++){
+      let letterWidth = textWidth(processos[i].getNome());
+
+      let p = processos[i];
+
+      fill(255);
+      //                           X                       Y
+      text(p.getNome(), 95 - letterWidth, 60 + (positionY * i));
+      posicaoY[i] = 60 + (positionY * i);
+    }
+
+    // Pegando as posições dos tempos
+    let positionX = 600 / qtdTempoTotal;
+    for(let i = 0; i < qtdTempoTotal; i++){
+      let letterWidth = textWidth(i + 1);
+
+      fill(255);
+      //                 X                Y
+      text(i + 1, 125 + (positionX * i), 350);
+      posicaoX[i] = 125 + (positionX * i);
+    }
+
+    // Desenhando os tempos
     
 
   } else {
