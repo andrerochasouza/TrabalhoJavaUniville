@@ -113,11 +113,13 @@ function fifo(){
     // Pegando o tempo total dos processos
     let qtdTempoTotal = 0;
     for (let i = 0; i < qtdProcessos; i++) {
-      qtdTempoTotal += processos[i].getTempo().length;
+      for (let j = 0; j < processos[i].getTempo().length; j++) {
+        qtdTempoTotal += parseInt(processos[i].getTempo()[j]);
+      }
     }
 
     // Pegando as posições dos processos
-    let positionY = 300 / qtdProcessos;
+    let positionY = 275 / qtdProcessos;
     for(let i = 0; i < qtdProcessos; i++){
       let letterWidth = textWidth(processos[i].getNome());
 
@@ -135,13 +137,24 @@ function fifo(){
       let letterWidth = textWidth(i + 1);
 
       fill(255);
-      //                 X                Y
-      text(i + 1, 125 + (positionX * i), 350);
-      posicaoX[i] = 125 + (positionX * i);
+      //                X                     Y
+      text(i + 1, 100 + (positionX * (i+1)), 350);
+      posicaoX[i] = 100 + (positionX * (i+1));
     }
 
-    // Desenhando os tempos
-    
+    // Desenhando os blocos quando o processo anterior termina
+    let posicaoTempoProcessoAnterior = 0;
+    for(let i = 0; i < qtdProcessos; i++){
+      let p = processos[i];
+      for(let j = 0; j < p.getTempo().length; j++){
+        let tempo = p.getTempo()[j];
+        fill(255);
+        rect(posicaoX[i] - positionX, posicaoY[i] - 10, positionX * (j + 1), posicaoY[i] + posicaoY[i]);
+      }
+      
+      posicaoTempoProcessoAnterior += p.getTempo()
+    }
+
 
   } else {
     alert("Não há processos para executar");
