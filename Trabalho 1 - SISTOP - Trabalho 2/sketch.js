@@ -146,12 +146,13 @@ function fifo(){
     let posicaoTempoProcessoAnterior = 0;
     for(let i = 0; i < qtdProcessos; i++){
       let p = processos[i];
+      let tempoanterior = 0;
       for(let j = 0; j < p.getTempo().length; j++){
         let tempo = p.getTempo()[j];
         
         fill(255);
 
-        rect(posicaoX[j] - positionX, 50 + (i * positionY), positionX * tempo, 50 + (i * positionY));
+        rect((posicaoX[j]) - positionX, 50 + (i * positionY), positionX * tempo, positionY);
       }
       
       posicaoTempoProcessoAnterior += p.getTempo()
