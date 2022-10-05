@@ -97,7 +97,9 @@ function setup() {
   noLoop();
 }
 
-function bloco(tempos, x, y, w, h){
+function blocoFIFO(tempoInicial, tempos, x, y, w, h){
+  let tempo = tempoInicial;
+
   for (let i = 0; i < tempos.length; i++) {
     if(tempos[i] > 0){
       fill(0, 255, 0);
@@ -108,6 +110,11 @@ function bloco(tempos, x, y, w, h){
     }
     rect(x, y, w*abs(tempos[i]), h);
     x += w*abs(tempos[i]);
+    tempo += abs(tempos[i]);
+
+    fill(255);
+    textSize(15);
+    text(tempo, x - w*abs(tempos[i])/2, 350);
   }
 }
 
@@ -160,23 +167,18 @@ function fifo(){
       fill(255);
       text(nome, 90 - letterWidth, posicoesY[i] + 10);
     }
-
-    for (let i = 0; i < qtdTempoTotal; i++) {
-      fill(255);
-      text(i + 1, posicoesX[i], 350);
-    }
     
     let somaTempo = 0;
     for (let i = 0; i < processos.length; i++) {
       let p = processos[i];
       let tempos = p.getTempo();
       if(i == 0){
-        bloco(tempos, posicoesX[0] - tamX, posicoesY[i], tamX, tamY);
+        blocoFIFO(0, tempos, posicoesX[0] - tamX, posicoesY[i], tamX, tamY);
         for (let j = 0; j < tempos.length; j++) {
           somaTempo += abs(parseInt(tempos[j]));
         }
       } else {
-        bloco(tempos, posicoesX[somaTempo] - tamX, posicoesY[i], tamX, tamY);
+        blocoFIFO(somaTempo, tempos, posicoesX[somaTempo] - tamX, posicoesY[i], tamX, tamY);
         for (let j = 0; j < tempos.length; j++) {
           somaTempo += abs(parseInt(tempos[j]));
         }
