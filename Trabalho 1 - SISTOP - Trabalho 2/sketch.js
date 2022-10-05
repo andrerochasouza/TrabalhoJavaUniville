@@ -165,7 +165,7 @@ function fifo(){
       let nome = p.getNome();
       let letterWidth = textWidth(nome);
       fill(255);
-      text(nome, 90 - letterWidth, posicoesY[i] + 10);
+      text(nome, 90 - letterWidth, posicoesY[i] + (tamY/2));
     }
     
     let somaTempo = 0;
