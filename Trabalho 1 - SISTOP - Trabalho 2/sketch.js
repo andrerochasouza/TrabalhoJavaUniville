@@ -148,8 +148,10 @@ function fifo(){
       let p = processos[i];
       for(let j = 0; j < p.getTempo().length; j++){
         let tempo = p.getTempo()[j];
+        
         fill(255);
-        rect(posicaoX[i] - positionX, posicaoY[i] - 10, positionX * (j + 1), posicaoY[i] + posicaoY[i]);
+
+        rect(posicaoX[j] - positionX, 50 + (i * positionY), positionX * tempo, 50 + (i * positionY));
       }
       
       posicaoTempoProcessoAnterior += p.getTempo()
