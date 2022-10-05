@@ -33,6 +33,9 @@ function validation(nome, prioridade, tempos){
     if(tempos[i] == "" || tempos[i] == null){
       alert("Tempo "+ (i + 1) +" não pode ser vazia");
       return false;
+    } else if(tempos[i] < -5 || tempos[i] > 5 || tempos[i] == 0){
+      alert("Tempo "+ (i + 1) +" deve ser entre -5 a 5 ou diferente de 0");
+      return false;
     }
   }
 
@@ -94,70 +97,91 @@ function setup() {
   noLoop();
 }
 
+function bloco(tempos, x, y, w, h){
+  for (let i = 0; i < tempos.length; i++) {
+    if(tempos[i] > 0){
+      fill(0, 255, 0);
+    } else if(tempos[i] < 0){
+      fill(255, 0, 0);
+    } else {
+      fill(255);
+    }
+    rect(x, y, w*abs(tempos[i]), h);
+    x += w*abs(tempos[i]);
+  }
+}
+
 function fifo(){
   if(temProcesso()){
-    background(0);
 
+    background(0);
     stroke(255);
-    //    X1  Y1   X2   Y2
     line(100, 50, 100, 350);
     stroke(155);
     line(75, 325, 700, 325);
-    
-    
-    let posicaoX = [];
-    let posicaoY = [];
+
+    fill(0, 255, 0);
+    rect(10, 350, 20, 20);
+    fill(255, 0, 0);
+    rect(10, 375, 20, 20);
+    fill(255);
+    text("Tempo positivo", 35, 365);
+    text("Tempo negativo", 35, 390);
+  
 
     let qtdProcessos = processos.length;
-    
-    // Pegando o tempo total dos processos
     let qtdTempoTotal = 0;
-    for (let i = 0; i < qtdProcessos; i++) {
-      for (let j = 0; j < processos[i].getTempo().length; j++) {
-        qtdTempoTotal += parseInt(processos[i].getTempo()[j]);
+
+    for (let i = 0; i < processos.length; i++) {
+      let p = processos[i];
+      let tempos = p.getTempo();
+      for (let j = 0; j < tempos.length; j++) {
+        qtdTempoTotal += abs(parseInt(tempos[j]));
       }
     }
 
-    // Pegando as posições dos processos
-    let positionY = 275 / qtdProcessos;
+    let tamX = (600 / qtdTempoTotal);
+    let tamY = (275 / qtdProcessos);
+    let posicoesX = [];
+    let posicoesY = [];
+    
+    for(let i = 0; i <= qtdTempoTotal; i++){
+      posicoesX.push(100 + (tamX * (i + 1)));
+    }
+    
     for(let i = 0; i < qtdProcessos; i++){
-      let letterWidth = textWidth(processos[i].getNome());
-
-      let p = processos[i];
-
-      fill(255);
-      //                           X                       Y
-      text(p.getNome(), 95 - letterWidth, 60 + (positionY * i));
-      posicaoY[i] = 60 + (positionY * i);
+      posicoesY.push(50 + (tamY * i));
     }
 
-    // Pegando as posições dos tempos
-    let positionX = 600 / qtdTempoTotal;
-    for(let i = 0; i < qtdTempoTotal; i++){
-      let letterWidth = textWidth(i + 1);
-
+    for (let i = 0; i < processos.length; i++) {
+      let p = processos[i];
+      let nome = p.getNome();
+      let letterWidth = textWidth(nome);
       fill(255);
-      //                X                     Y
-      text(i + 1, 100 + (positionX * (i+1)), 350);
-      posicaoX[i] = 100 + (positionX * (i+1));
+      text(nome, 90 - letterWidth, posicoesY[i] + 10);
     }
 
-    // Desenhando os blocos quando o processo anterior termina
-    let posicaoTempoProcessoAnterior = 0;
-    for(let i = 0; i < qtdProcessos; i++){
+    for (let i = 0; i < qtdTempoTotal; i++) {
+      fill(255);
+      text(i + 1, posicoesX[i], 350);
+    }
+    
+    let somaTempo = 0;
+    for (let i = 0; i < processos.length; i++) {
       let p = processos[i];
-      let tempoanterior = 0;
-      for(let j = 0; j < p.getTempo().length; j++){
-        let tempo = p.getTempo()[j];
-        
-        fill(255);
-
-        rect((posicaoX[j]) - positionX, 50 + (i * positionY), positionX * tempo, positionY);
+      let tempos = p.getTempo();
+      if(i == 0){
+        bloco(tempos, posicoesX[0] - tamX, posicoesY[i], tamX, tamY);
+        for (let j = 0; j < tempos.length; j++) {
+          somaTempo += abs(parseInt(tempos[j]));
+        }
+      } else {
+        bloco(tempos, posicoesX[somaTempo] - tamX, posicoesY[i], tamX, tamY);
+        for (let j = 0; j < tempos.length; j++) {
+          somaTempo += abs(parseInt(tempos[j]));
+        }
       }
-      
-      posicaoTempoProcessoAnterior += p.getTempo()
     }
-
 
   } else {
     alert("Não há processos para executar");
