@@ -196,6 +196,7 @@ function sjf(){
     background(0);
 
 
+
   } else {
     alert("Não há processos para executar");
     background(0);
@@ -204,8 +205,75 @@ function sjf(){
 
 function prioridade(){
   if(temProcesso()){
-    background(0);
 
+    background(0);
+    stroke(255);
+    line(100, 50, 100, 350);
+    stroke(155);
+    line(75, 325, 700, 325);
+
+    fill(0, 255, 0);
+    rect(10, 350, 20, 20);
+    fill(255, 0, 0);
+    rect(10, 375, 20, 20);
+    fill(255);
+    text("Tempo positivo", 35, 365);
+    text("Tempo negativo", 35, 390);
+
+    let qtdProcessos = processos.length;
+    let qtdTempoTotal = 0;
+
+    for (let i = 0; i < processos.length; i++) {
+      let p = processos[i];
+      let tempos = p.getTempo();
+      for (let j = 0; j < tempos.length; j++) {
+        qtdTempoTotal += abs(parseInt(tempos[j]));
+      }
+    }
+
+    let tamX = (600 / qtdTempoTotal);
+    let tamY = (275 / qtdProcessos);
+    let posicoesX = [];
+    let posicoesY = [];
+
+    processos.sort(function (a, b){
+      return a.getPrioridade() - b.getPrioridade();
+    });
+
+    console.table(processos);
+    
+    for(let i = 0; i <= qtdTempoTotal; i++){
+      posicoesX.push(100 + (tamX * (i + 1)));
+    }
+    
+    for(let i = 0; i < qtdProcessos; i++){
+      posicoesY.push(50 + (tamY * i));
+    }
+
+    for (let i = 0; i < processos.length; i++) {
+      let p = processos[i];
+      let nome = p.getNome();
+      let letterWidth = textWidth(nome);
+      fill(255);
+      text(nome, 90 - letterWidth, posicoesY[i] + (tamY/2));
+    }
+
+    let somaTempo = 0;
+    for (let i = 0; i < processos.length; i++) {
+      let p = processos[i];
+      let tempos = p.getTempo();
+      if(i == 0){
+        blocoFIFO(0, tempos, posicoesX[0] - tamX, posicoesY[i], tamX, tamY);
+        for (let j = 0; j < tempos.length; j++) {
+          somaTempo += abs(parseInt(tempos[j]));
+        }
+      } else {
+        blocoFIFO(somaTempo, tempos, posicoesX[somaTempo] - tamX, posicoesY[i], tamX, tamY);
+        for (let j = 0; j < tempos.length; j++) {
+          somaTempo += abs(parseInt(tempos[j]));
+        }
+      }
+    }
 
   } else {    
     alert("Não há processos para executar");
