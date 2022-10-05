@@ -193,9 +193,22 @@ function fifo(){
 
 function sjf(){
   if(temProcesso()){
+    
     background(0);
+    stroke(255);
+    line(100, 50, 100, 350);
+    stroke(155);
+    line(75, 325, 700, 325);
 
+    fill(0, 255, 0);
+    rect(10, 350, 20, 20);
+    fill(255, 0, 0);
+    rect(10, 375, 20, 20);
+    fill(255);
+    text("Tempo positivo", 35, 365);
+    text("Tempo negativo", 35, 390);
 
+    
 
   } else {
     alert("Não há processos para executar");
@@ -239,8 +252,6 @@ function prioridade(){
     processos.sort(function (a, b){
       return a.getPrioridade() - b.getPrioridade();
     });
-
-    console.table(processos);
     
     for(let i = 0; i <= qtdTempoTotal; i++){
       posicoesX.push(100 + (tamX * (i + 1)));
