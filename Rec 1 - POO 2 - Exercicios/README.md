@@ -2,6 +2,8 @@
 
 1. Crie um código que apresente uma herança.
 
+![Herança](https://github.com/andrerochasouza/TrabalhoJavaUniville/blob/main/Rec%201%20-%20POO%202%20-%20Exercicios/heranca.png)
+
 ```java
 
 public class Linha {
@@ -40,6 +42,8 @@ public class Main {
 
 2. Crie um código que apresente uma implementação de interface.
 
+![Interface](https://github.com/andrerochasouza/TrabalhoJavaUniville/blob/main/Rec%201%20-%20POO%202%20-%20Exercicios/interface.jpg)
+
 ```java
 
 public interface IFormaGeometrica {
@@ -72,6 +76,9 @@ public class Main {
 
 3. Crie um código que apresente uma sobrecarga de método.
 
+![Sobrecarga](https://github.com/andrerochasouza/TrabalhoJavaUniville/blob/main/Rec%201%20-%20POO%202%20-%20Exercicios/sobrecarga.jpg)
+
+
 ```java
 
 public class Calculadora {
@@ -102,6 +109,8 @@ public class Main {
 ``` 
 
 4. Crie um código que apresente uma relação de composição.
+
+![Composição](https://github.com/andrerochasouza/TrabalhoJavaUniville/blob/main/Rec%201%20-%20POO%202%20-%20Exercicios/composicao.jpg)
 
 ```java
 
