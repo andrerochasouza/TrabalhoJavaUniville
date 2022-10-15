@@ -6,25 +6,15 @@ import java.util.Objects;
 
 public class Tarefa {
 
-    private int id;
-    private String titulo;
-    private String texto;
-    private LocalDate dataCriacao;
-    private LocalDate dataConclusao;
-    private boolean concluida;
-    private Lista lista;
+    private int id = 0;
+    private String titulo = "";
+    private String texto = "";
+    private LocalDate dataCriacao = LocalDate.now();
+    private LocalDate dataConclusao = null;
+    private boolean concluida = false;
+    private Lista lista = null;
 
     public Tarefa() {}
-
-    public Tarefa(int id, String titulo, String texto, LocalDate dataConclusao, boolean concluida, Lista lista) {
-        this.id = Objects.isNull(id) ? 0 : id;
-        this.titulo = Objects.isNull(titulo) ? "" : titulo;
-        this.texto = Objects.isNull(texto) ? "" : texto;
-        this.dataCriacao = LocalDate.now();;
-        this.dataConclusao = dataConclusao;
-        this.concluida = Objects.isNull(concluida) ? false : concluida;
-        this.lista = Objects.isNull(lista) ? new Lista() : lista;
-    }
 
     public int getId() {
         return id;

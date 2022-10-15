@@ -25,6 +25,10 @@ public class ListaDao {
     }
 
     public void create(Lista lista) {
+        if(!isValidoTituloLista(lista)){
+            throw new RuntimeException("Título da lista inválido");
+        }
+
         String sql = "INSERT INTO lista(titulo, dataCriacao, excluida) VALUES (?, ?, ?);";
         try {
             var stmt = connection.prepareStatement(sql);
@@ -51,7 +55,6 @@ public class ListaDao {
                 lista.setId(rs.getInt("id"));
                 lista.setTitulo(rs.getString("titulo"));
                 lista.setDataCriacao(LocalDate.parse(rs.getString("dataCriacao")));
-                System.out.println("teste");
                 lista.setExcluida(rs.getInt("excluida") == 1);
                 lista.setTarefas(new TarefaDao().readAllByIdLista(lista.getId()));
                 lista.getTarefas().stream().forEach(t -> t.setLista(lista));
@@ -93,6 +96,10 @@ public class ListaDao {
     }
 
     public void update(Lista lista) {
+        if(!isValidoTituloLista(lista)){
+            throw new RuntimeException("Título da lista inválido");
+        }
+
         String sql = "UPDATE lista SET titulo = ?, excluida = ? WHERE id = ?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -127,6 +134,44 @@ public class ListaDao {
         }
     }
 
+    public void deleteAll() {
+        String sqlTarefas = "DELETE FROM tarefa;";
+        String sqlListas = "DELETE FROM lista;";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sqlTarefas);
+            stmt.execute();
+            stmt.close();
+
+            stmt = connection.prepareStatement(sqlListas);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException e) {
+            System.err.println("Falha ao deletar lista: " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public int getIdByTitulo(String titulo) {
+        String sql = "SELECT id FROM lista WHERE titulo = ?;";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, titulo);
+            ResultSet rs = stmt.executeQuery();
+
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+
+            stmt.close();
+            return id;
+        } catch (SQLException e) {
+            System.err.println("Falha ao buscar id da lista: " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
     private void createTableIfExists(){
         String sql = "CREATE TABLE IF NOT EXISTS lista(      " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT,  " +
@@ -142,4 +187,17 @@ public class ListaDao {
         }
     }
 
+    private boolean isValidoTituloLista(Lista lista){
+        for (Lista l : this.readAll()) {
+            if(l.getTitulo().equals(lista.getTitulo()) && l.getId() != lista.getId()){
+                return false;
+            }
+        }
+
+        if (lista.getTitulo().isEmpty()){
+            System.err.println("Título da lista não pode ser vazio");
+            return false;
+        }
+        return true;
+    }
 }

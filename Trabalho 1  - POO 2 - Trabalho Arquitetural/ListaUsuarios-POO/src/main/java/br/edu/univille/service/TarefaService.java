@@ -2,7 +2,6 @@ package br.edu.univille.service;
 
 import br.edu.univille.dao.ListaDao;
 import br.edu.univille.dao.TarefaDao;
-import br.edu.univille.model.Lista;
 import br.edu.univille.model.Tarefa;
 
 import java.time.LocalDate;
@@ -69,8 +68,12 @@ public class TarefaService {
         System.out.println("-------------------");
     }
 
-    // Métodos de utilidade para a classe ListaService
-    Tarefa getTarefaPorId(int idTarefa) {
-        return tarefaDao.readOne(idTarefa);
+    public Tarefa getOneTarefa(int idTarefa) {
+        System.out.println("-------------------");
+        System.out.println("Buscando a tarefa " + idTarefa);
+        Tarefa tarefa = tarefaDao.readOne(idTarefa);
+        System.out.println("Tarefa encontrada com sucesso!");
+        System.out.println("-------------------");
+        return tarefa;
     }
 }

@@ -7,22 +7,14 @@ import java.util.Objects;
 
 public class Lista {
 
-    private int id;
-    private String titulo;
-    private LocalDate dataCriacao;
+    private int id = 0;
+    private String titulo = "";
+    private LocalDate dataCriacao = LocalDate.now();
 
-    private boolean excluida;
-    private ArrayList<Tarefa> tarefas;
+    private boolean excluida = false;
+    private ArrayList<Tarefa> tarefas = new ArrayList<>();
 
     public Lista() {}
-
-    public Lista(int id, String titulo, boolean excluida, ArrayList<Tarefa> tarefas) {
-        this.id = Objects.isNull(id) ? 0 : id;
-        this.titulo = Objects.isNull(titulo) ? "" : titulo;
-        this.dataCriacao = LocalDate.now();
-        this.excluida = Objects.isNull(excluida) ? false : excluida;
-        this.tarefas = Objects.isNull(tarefas) ? new ArrayList<Tarefa>() : tarefas;
-    }
 
     public int getId() {
         return id;

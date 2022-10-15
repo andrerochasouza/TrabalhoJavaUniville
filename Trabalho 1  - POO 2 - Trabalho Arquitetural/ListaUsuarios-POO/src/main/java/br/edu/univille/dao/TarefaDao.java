@@ -27,6 +27,10 @@ public class TarefaDao {
 
 
     public void create(Tarefa tarefa) {
+        if(!isValidoTituloTarefa(tarefa)){
+            throw new RuntimeException("Título inválido");
+        }
+
         String sql = "INSERT INTO tarefa(titulo, texto, dataCriacao, dataConclusao, concluida, idLista) VALUES (?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -96,6 +100,10 @@ public class TarefaDao {
     }
 
     public void update(Tarefa tarefa) {
+        if(!isValidoTituloTarefa(tarefa)){
+            throw new RuntimeException("Título inválido");
+        }
+
         String sql = "UPDATE tarefa SET titulo = ?, texto = ?, dataConclusao = ?, concluida = ?, idLista = ? WHERE id = ?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -126,6 +134,26 @@ public class TarefaDao {
         }
     }
 
+    public int getIdByTitulo(String tarefa) {
+        String sql = "SELECT id FROM tarefa WHERE titulo = ?;";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, tarefa);
+            ResultSet rs = stmt.executeQuery();
+
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+
+            stmt.close();
+            return id;
+        } catch (SQLException e) {
+            System.err.println("Falha ao buscar id da tarefa: " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
     private void createTableIfExists(){
         String sql = "CREATE TABLE IF NOT EXISTS tarefa(     " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -145,5 +173,18 @@ public class TarefaDao {
         }
     }
 
+    private boolean isValidoTituloTarefa(Tarefa tarefa){
+        for (Tarefa t : readAllByIdLista(tarefa.getLista().getId())){
+            if(t.getTitulo().equals(tarefa.getTitulo()) && t.getId() != tarefa.getId()){
+                return false;
+            }
+        }
+
+        if (tarefa.getTitulo().isEmpty()){
+            System.err.println("Título da tarefa não pode ser vazio");
+            return false;
+        }
+        return true;
+    }
 
 }

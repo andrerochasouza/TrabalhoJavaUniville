@@ -22,7 +22,8 @@ public class ListaService {
         System.out.println("Digite o título da lista:");
         lista.setTitulo(scan.nextLine());
         listaDao.create(lista);
-        System.out.println("Lista criada com sucesso!");
+        int id = listaDao.getIdByTitulo(lista.getTitulo());
+        System.out.println("Lista ID " + id + " criada com sucesso!");
         System.out.println("-------------------");
     }
 
@@ -30,7 +31,16 @@ public class ListaService {
         System.out.println("-------------------");
         System.out.println("Excluindo a lista " + lista.getTitulo() + " (vai excluir todas as tarefas também)");
         listaDao.delete(lista.getId());
-        System.out.println("Lista e tarefas excluída com sucesso!");
+        int id = lista.getId();
+        System.out.println("Lista ID " + id + " e tarefas excluída com sucesso!");
+        System.out.println("-------------------");
+    }
+
+    public void excluirTodasAsListas(){
+        System.out.println("-------------------");
+        System.out.println("Excluindo todas as listas (vai excluir todas as tarefas também)");
+        listaDao.deleteAll();
+        System.out.println("Todas as listas e tarefas excluídas com sucesso!");
         System.out.println("-------------------");
     }
 
@@ -38,59 +48,60 @@ public class ListaService {
         System.out.println("-------------------");
         System.out.println("Atualizando a lista " + lista.getTitulo());
         listaDao.update(lista);
-        System.out.println("Lista atualizada com sucesso!");
+        int id = lista.getId();
+        System.out.println("Lista ID " + id + " atualizada com sucesso!");
         System.out.println("-------------------");
     }
 
     public void listarTodasAsListas() {
-        System.out.println("------------------------------");
-        System.out.println("Listando todas as listas");
+        System.out.println("|------------------------------");
+        System.out.println("| Listando todas as listas");
         ArrayList<Lista> listas = listaDao.readAll();
         for (Lista lista : listas) {
-            System.out.println("++++++++++++++++++++++++++++++");
-            System.out.println("Lista ID: " + lista.getId());
-            System.out.println("Título: " + lista.getTitulo());
+            System.out.println("| ++++++++++++++++++++++++++++++");
+            System.out.println("| Lista ID: " + lista.getId());
+            System.out.println("| Título: " + lista.getTitulo());
             if(lista.getTarefas() != null) {
                 for (Tarefa tarefa : lista.getTarefas()) {
-                    System.out.println("=========");
-                    System.out.println("Tarefa ID: " + tarefa.getId());
-                    System.out.println("Título: " + tarefa.getTitulo());
-                    System.out.println("Texto: " + tarefa.getTexto());
-                    System.out.println("Data de criação: " + tarefa.getDataCriacao());
-                    System.out.println("Data de conclusão: " + tarefa.getDataConclusao());
-                    System.out.println("Concluída: " + tarefa.isConcluida());
-                    System.out.println("=========");
+                    System.out.println("|=========");
+                    System.out.println("| Tarefa ID: " + tarefa.getId());
+                    System.out.println("| Título: " + tarefa.getTitulo());
+                    System.out.println("| Texto: " + tarefa.getTexto());
+                    System.out.println("| Data de criação: " + tarefa.getDataCriacao());
+                    System.out.println("| Data de conclusão: " + tarefa.getDataConclusao());
+                    System.out.println("| Concluída: " + tarefa.isConcluida());
+                    System.out.println("| =========");
                 }
             } else {
-                System.out.println("Tarefas: 0");
+                System.out.println("| Tarefas: 0");
             }
-            System.out.println("++++++++++++++++++++++++++++++");
+            System.out.println("| ++++++++++++++++++++++++++++++");
         }
-        System.out.println("------------------------------");
+        System.out.println("| ------------------------------");
     }
 
     public void listarUmaListaPeloId(int idLista){
-        System.out.println("------------------------------");
-        System.out.println("Listando a lista " + idLista);
+        System.out.println("| ------------------------------");
+        System.out.println("| Listando a lista " + idLista);
         Lista lista = listaDao.readOne(idLista);
-        System.out.println("++++++++++++++++++++++++++++++");
-        System.out.println("Lista ID: " + lista.getId());
-        System.out.println("Título: " + lista.getTitulo());
+        System.out.println("| ++++++++++++++++++++++++++++++");
+        System.out.println("| Lista ID: " + lista.getId());
+        System.out.println("| Título: " + lista.getTitulo());
         if(lista.getTarefas() != null) {
             for (Tarefa tarefa : lista.getTarefas()) {
-                System.out.println("=========");
-                System.out.println("Tarefa ID: " + tarefa.getId());
-                System.out.println("Título: " + tarefa.getTitulo());
-                System.out.println("Texto: " + tarefa.getTexto());
-                System.out.println("Data de criação: " + tarefa.getDataCriacao());
-                System.out.println("Data de conclusão: " + tarefa.getDataConclusao());
-                System.out.println("Concluída: " + tarefa.isConcluida());
-                System.out.println("=========");
+                System.out.println("| =========");
+                System.out.println("| Tarefa ID: " + tarefa.getId());
+                System.out.println("| Título: " + tarefa.getTitulo());
+                System.out.println("| Texto: " + tarefa.getTexto());
+                System.out.println("| Data de criação: " + tarefa.getDataCriacao());
+                System.out.println("| Data de conclusão: " + tarefa.getDataConclusao());
+                System.out.println("| Concluída: " + tarefa.isConcluida());
+                System.out.println("| =========");
             }
         } else {
-            System.out.println("Tarefas: 0");
+            System.out.println("| Tarefas: 0");
         }
-        System.out.println("++++++++++++++++++++++++++++++");
+        System.out.println("| ++++++++++++++++++++++++++++++");
     }
 
 }
