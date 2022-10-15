@@ -1,26 +1,27 @@
 package br.edu.univille.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class Lista {
 
     private int id;
     private String titulo;
-    private Date dataCriacao;
-    private Date dataExclusao;
+    private LocalDate dataCriacao;
+
     private boolean excluida;
     private ArrayList<Tarefa> tarefas;
 
     public Lista() {}
 
-    public Lista(int id, String titulo, Date dataExclusao, boolean excluida, ArrayList<Tarefa> tarefas) {
-        this.id = id;
-        this.titulo = titulo;
-        this.dataCriacao = new Date();
-        this.dataExclusao = dataExclusao;
-        this.excluida = excluida;
-        this.tarefas = tarefas;
+    public Lista(int id, String titulo, boolean excluida, ArrayList<Tarefa> tarefas) {
+        this.id = Objects.isNull(id) ? 0 : id;
+        this.titulo = Objects.isNull(titulo) ? "" : titulo;
+        this.dataCriacao = LocalDate.now();
+        this.excluida = Objects.isNull(excluida) ? false : excluida;
+        this.tarefas = Objects.isNull(tarefas) ? new ArrayList<Tarefa>() : tarefas;
     }
 
     public int getId() {
@@ -39,20 +40,12 @@ public class Lista {
         this.titulo = titulo;
     }
 
-    public Date getDataCriacao() {
+    public LocalDate getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    public Date getDataExclusao() {
-        return dataExclusao;
-    }
-
-    public void setDataExclusao(Date dataExclusao) {
-        this.dataExclusao = dataExclusao;
     }
 
     public boolean isExcluida() {

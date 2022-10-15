@@ -1,27 +1,29 @@
 package br.edu.univille.model;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class Tarefa {
 
     private int id;
     private String titulo;
     private String texto;
-    private Date dataCriacao;
-    private Date dataConclusao;
+    private LocalDate dataCriacao;
+    private LocalDate dataConclusao;
     private boolean concluida;
     private Lista lista;
 
     public Tarefa() {}
 
-    public Tarefa(int id, String titulo, String texto, Date dataConclusao, boolean concluida, Lista lista) {
-        this.id = id;
-        this.titulo = titulo;
-        this.texto = texto;
-        this.dataCriacao = new Date();
+    public Tarefa(int id, String titulo, String texto, LocalDate dataConclusao, boolean concluida, Lista lista) {
+        this.id = Objects.isNull(id) ? 0 : id;
+        this.titulo = Objects.isNull(titulo) ? "" : titulo;
+        this.texto = Objects.isNull(texto) ? "" : texto;
+        this.dataCriacao = LocalDate.now();;
         this.dataConclusao = dataConclusao;
-        this.concluida = concluida;
-        this.lista = lista;
+        this.concluida = Objects.isNull(concluida) ? false : concluida;
+        this.lista = Objects.isNull(lista) ? new Lista() : lista;
     }
 
     public int getId() {
@@ -48,19 +50,19 @@ public class Tarefa {
         this.texto = texto;
     }
 
-    public Date getDataCriacao() {
+    public LocalDate getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public Date getDataConclusao() {
+    public LocalDate getDataConclusao() {
         return dataConclusao;
     }
 
-    public void setDataConclusao(Date dataConclusao) {
+    public void setDataConclusao(LocalDate dataConclusao) {
         this.dataConclusao = dataConclusao;
     }
 
