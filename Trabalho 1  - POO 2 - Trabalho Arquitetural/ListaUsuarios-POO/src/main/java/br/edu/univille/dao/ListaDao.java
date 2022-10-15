@@ -3,10 +3,12 @@ package br.edu.univille.dao;
 import br.edu.univille.factory.ConnectionFactory;
 import br.edu.univille.model.Lista;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ListaDao {
 
@@ -48,7 +50,6 @@ public class ListaDao {
             if (rs.next()) {
                 lista.setId(rs.getInt("id"));
                 lista.setTitulo(rs.getString("titulo"));
-                // setar data de criação com string do banco vindo com o formato Sat Oct 15 00:49:16 BRT 2022
                 lista.setDataCriacao(LocalDate.parse(rs.getString("dataCriacao")));
                 System.out.println("teste");
                 lista.setExcluida(rs.getInt("excluida") == 1);
@@ -107,12 +108,19 @@ public class ListaDao {
     }
 
     public void delete(int idLista) {
-        String sql = "DELETE FROM lista WHERE id = ?;";
+        String sqlTarefasByList = "DELETE FROM tarefa WHERE idLista = ?;";
+        String sqlDeleteList = "DELETE FROM lista WHERE id = ?;";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sqlTarefasByList);
             stmt.setInt(1, idLista);
             stmt.execute();
             stmt.close();
+
+            stmt = connection.prepareStatement(sqlDeleteList);
+            stmt.setInt(1, idLista);
+            stmt.execute();
+            stmt.close();
+
         } catch (SQLException e) {
             System.err.println("Falha ao deletar lista: " + e.getMessage());
             throw new RuntimeException(e.getMessage());
