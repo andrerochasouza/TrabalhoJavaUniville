@@ -6,7 +6,7 @@ import java.util.Date;
 public class Lista {
 
     private int id;
-    private String nome;
+    private String titulo;
     private final Date dataCriacao = new Date();
     private Date dataExclusao;
     private boolean excluida;
@@ -14,9 +14,9 @@ public class Lista {
 
     private Lista() {}
 
-    public Lista(int id, String nome, Date dataExclusao, boolean excluida) {
+    public Lista(int id, String titulo, Date dataExclusao, boolean excluida) {
         this.id = id;
-        this.nome = nome;
+        this.titulo = titulo;
         this.dataExclusao = dataExclusao;
         this.excluida = excluida;
     }
@@ -29,12 +29,12 @@ public class Lista {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public Date getDataCriacao() {
