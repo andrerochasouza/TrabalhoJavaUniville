@@ -7,18 +7,20 @@ public class Lista {
 
     private int id;
     private String titulo;
-    private final Date dataCriacao = new Date();
+    private Date dataCriacao;
     private Date dataExclusao;
     private boolean excluida;
     private ArrayList<Tarefa> tarefas;
 
-    private Lista() {}
+    public Lista() {}
 
-    public Lista(int id, String titulo, Date dataExclusao, boolean excluida) {
+    public Lista(int id, String titulo, Date dataExclusao, boolean excluida, ArrayList<Tarefa> tarefas) {
         this.id = id;
         this.titulo = titulo;
+        this.dataCriacao = new Date();
         this.dataExclusao = dataExclusao;
         this.excluida = excluida;
+        this.tarefas = tarefas;
     }
 
     public int getId() {
@@ -39,6 +41,10 @@ public class Lista {
 
     public Date getDataCriacao() {
         return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public Date getDataExclusao() {
