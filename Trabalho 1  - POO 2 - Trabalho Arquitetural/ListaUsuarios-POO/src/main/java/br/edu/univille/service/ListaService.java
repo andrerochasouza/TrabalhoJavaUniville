@@ -19,7 +19,7 @@ public class ListaService {
     public void criarLista() {
         Lista lista = new Lista();
         System.out.println("-------------------");
-        System.out.println("Digite o título da lista:");
+        System.out.print("Digite o título da lista: ");
         lista.setTitulo(scan.nextLine());
         listaDao.create(lista);
         int id = listaDao.getIdByTitulo(lista.getTitulo());
@@ -27,8 +27,12 @@ public class ListaService {
         System.out.println("-------------------");
     }
 
-    public void excluirLista(Lista lista) {
+    public void excluirLista() {
         System.out.println("-------------------");
+        System.out.print("Digite o ID da tarefa que deseja excluir: ");
+        int idLista = scan.nextInt();
+        scan.nextLine();
+        Lista lista = listaDao.readOne(idLista);
         System.out.println("Excluindo a lista " + lista.getTitulo() + " (vai excluir todas as tarefas também)");
         listaDao.delete(lista.getId());
         int id = lista.getId();
@@ -44,8 +48,12 @@ public class ListaService {
         System.out.println("-------------------");
     }
 
-    public void atualizarLista(Lista lista) {
+    public void atualizarLista() {
         System.out.println("-------------------");
+        System.out.print("Digite o ID da lista que deseja atualizar: ");
+        int idLista = scan.nextInt();
+        scan.nextLine();
+        Lista lista = listaDao.readOne(idLista);
         System.out.println("Atualizando a lista " + lista.getTitulo());
         listaDao.update(lista);
         int id = lista.getId();
@@ -80,8 +88,11 @@ public class ListaService {
         System.out.println("| ------------------------------");
     }
 
-    public void listarUmaListaPeloId(int idLista){
+    public void listarUmaListaPeloId(){
         System.out.println("| ------------------------------");
+        System.out.print("| Digite o ID da lista:");
+        int idLista = scan.nextInt();
+        scan.nextLine();
         System.out.println("| Listando a lista " + idLista);
         Lista lista = listaDao.readOne(idLista);
         System.out.println("| ++++++++++++++++++++++++++++++");
