@@ -1,0 +1,9 @@
+br\edu\univille\Main.class
+br\edu\univille\service\TarefaService.class
+br\edu\univille\dao\TarefaDao.class
+br\edu\univille\service\ListaService.class
+br\edu\univille\factory\ConnectionFactory.class
+br\edu\univille\model\Tarefa.class
+br\edu\univille\model\Lista.class
+br\edu\univille\factory\PropertiesUtils.class
+br\edu\univille\dao\ListaDao.class
