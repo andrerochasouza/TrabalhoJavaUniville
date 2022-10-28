@@ -24,21 +24,11 @@ public class CadastroTarefas extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        this.campoTextoTarefa();
+        UtilsMethods.newJtextArea(50, 50, 200, 375, "Tarefa", this);
         this.campoSelectionPrioridade();
-        this.campoCheckBoxFinalizado();
-        this.campoBotaoCancelarSalvar();
-
-    }
-
-    public void campoTextoTarefa() {
-        Label labelTarefa = new Label("Tarefa");
-        labelTarefa.setBounds(50, 30, 50, 10);
-        add(labelTarefa);
-
-        JTextArea txtTarefa = new JTextArea();
-        txtTarefa.setBounds(50, 50, 375, 200);
-        add(txtTarefa);
+        UtilsMethods.newCheckBox(50, 350, 10, 10, "Finalizado", this);
+        UtilsMethods.newBtn(200, 425, 20, 100, "Cancelar", this);
+        UtilsMethods.newBtn(325, 425, 20, 100, "Salvar", this);
 
     }
 
@@ -55,27 +45,4 @@ public class CadastroTarefas extends JFrame {
         add(comboBoxPrioridade);
 
     }
-
-    public void campoCheckBoxFinalizado() {
-        Label labelFinalizado = new Label("Finalizado");
-        labelFinalizado.setBounds(70, 395, 70, 10);
-        add(labelFinalizado);
-
-        JCheckBox checkBoxFinalizado = new JCheckBox();
-        checkBoxFinalizado.setBounds(50, 350, 100, 100);
-        add(checkBoxFinalizado);
-
-    }
-
-    public void campoBotaoCancelarSalvar() {
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBounds(200, 425, 100, 20);
-        add(btnCancelar);
-
-        JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.setBounds(325, 425, 100, 20);
-        add(btnSalvar);
-
-    }
-
 }
