@@ -109,7 +109,7 @@ public class TarefaDao {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getTexto());
-            stmt.setString(3, tarefa.getDataConclusao().toString());
+            stmt.setString(3, Objects.isNull(tarefa.getDataConclusao()) ? null : tarefa.getDataConclusao().toString());
             stmt.setInt(4, tarefa.isConcluida() ? 1 : 0);
             stmt.setInt(5, tarefa.getLista().getId());
             stmt.setInt(6, tarefa.getId());
@@ -154,6 +154,25 @@ public class TarefaDao {
         }
     }
 
+    public int getProximoId() {
+        String sql = "SELECT MAX(id) FROM tarefa;";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt("MAX(id)");
+            }
+
+            stmt.close();
+            return id + 1;
+        } catch (SQLException e) {
+            System.err.println("Falha ao buscar id da tarefa: " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
     private void createTableIfExists(){
         String sql = "CREATE TABLE IF NOT EXISTS tarefa(     " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -186,5 +205,4 @@ public class TarefaDao {
         }
         return true;
     }
-
 }

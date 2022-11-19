@@ -188,16 +188,17 @@ public class ListaDao {
     }
 
     private boolean isValidoTituloLista(Lista lista){
-        for (Lista l : this.readAll()) {
-            if(l.getTitulo().equals(lista.getTitulo()) && l.getId() != lista.getId()){
-                return false;
-            }
+        ArrayList<Lista> listas = readAll();
+        if(listas.stream().anyMatch(l -> l.getTitulo().equals(lista.getTitulo()) && l.getId() != lista.getId())){
+            System.err.println("Título da lista já existe");
+            return false;
         }
 
         if (lista.getTitulo().isEmpty()){
             System.err.println("Título da lista não pode ser vazio");
             return false;
         }
+
         return true;
     }
 }

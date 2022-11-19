@@ -3,6 +3,7 @@ package br.edu.univille.service;
 import br.edu.univille.dao.ListaDao;
 import br.edu.univille.model.Lista;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class ListaService {
@@ -14,7 +15,11 @@ public class ListaService {
     }
 
     public void criarLista(Lista lista) {
-        listaDao.create(lista);
+        try{
+            listaDao.create(lista);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao criar lista (por favor, tente novamente)");
+        }
     }
 
     public void excluirLista(int idLista) {
@@ -30,12 +35,12 @@ public class ListaService {
         listaDao.update(listaNew);
     }
 
-    public void listarTodasAsListas() {
-        ArrayList<Lista> listas = listaDao.readAll();
+    public ArrayList<Lista> listarTodasAsListas() {
+        return listaDao.readAll();
     }
 
-    public void listarUmaListaPeloId(int idLista){
-        Lista lista = listaDao.readOne(idLista);
+    public Lista listarUmaListaPeloId(int idLista){
+        return listaDao.readOne(idLista);
     }
 
 }
