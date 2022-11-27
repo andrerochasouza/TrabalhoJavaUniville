@@ -1,6 +1,5 @@
 package br.edu.univille.service;
 
-import br.edu.univille.dao.ListaDao;
 import br.edu.univille.dao.TarefaDao;
 import br.edu.univille.model.Tarefa;
 

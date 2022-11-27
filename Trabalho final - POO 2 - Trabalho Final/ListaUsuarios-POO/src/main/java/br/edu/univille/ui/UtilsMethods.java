@@ -7,7 +7,6 @@ import br.edu.univille.service.TarefaService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +58,7 @@ public class UtilsMethods extends JFrame{
 
     public static List<Object> newJTableByLista(ArrayList<Lista> lista, ListaService listaService, TarefaService tarefaService, JFrame frameAtual) {
 
-        String[] colunas = {"ID", "Titulo", "data de criação", "Excluido", "Tarefas", "Ver tarefas"};
+        String[] colunas = {"ID", "Titulo", "data de criação", "Excluido", "Tarefas", "Ver tarefas", "Excluir"};
         Object[][] dados = new Object[lista.size()][colunas.length];
 
         for(int i = 0; i < lista.size(); i++){
@@ -69,6 +68,7 @@ public class UtilsMethods extends JFrame{
             dados[i][3] = lista.get(i).isExcluida() ? "Sim" : "Não";
             dados[i][4] = lista.get(i).getTarefas().size();
             dados[i][5] = "Ver tarefas";
+            dados[i][6] = "Excluir";
         }
 
         DefaultTableModel model = new DefaultTableModel(dados, colunas);
@@ -83,6 +83,12 @@ public class UtilsMethods extends JFrame{
                     if(col == 5){
                         Lista lista = listaService.listarUmaListaPeloId((int) table.getValueAt(row, 0));
                         new TelaTarefas(listaService, tarefaService, lista);
+                        frameAtual.dispose();
+                    }
+                    if(col == 6){
+                        int id = (int) table.getValueAt(row, 0);
+                        listaService.excluirLista(id);
+                        new TelaInicial(listaService, tarefaService);
                         frameAtual.dispose();
                     }
                 }
